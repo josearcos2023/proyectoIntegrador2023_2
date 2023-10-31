@@ -7,7 +7,7 @@ from .serializers import UserSerializer
  
   
 class HomeView(APIView):
-    permission_classes = (IsAuthenticated, )
+    permission_classes = (IsAuthenticated,)
   
     def get(self, request):
         content = {'message': 'LANDING PAGE!'}
