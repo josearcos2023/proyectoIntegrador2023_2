@@ -1,8 +1,9 @@
 from rest_framework import serializers
+from rest_framework.serializers import ModelSerializer
 from django.contrib.auth.models import User
 from .models import *
 
-class UserSerializer(serializers.ModelSerializer):
+class UserSerializer(ModelSerializer):
     class Meta:
         model = User
         fields = ('id', 'username', 'email', 'password')
@@ -18,13 +19,13 @@ class UserSerializer(serializers.ModelSerializer):
         )
         return user
     
-class ProductSerializer(serializers.ModelSerializer):
+class ProductSerializer(ModelSerializer):
     
     image = serializers.ImageField(write_only=True)
     
     class Meta:
         model = Producto
-        fields = ('titulo','descripcion','precio','condicion','fecha','image','cantidad')
+        fields = ('id_producto','titulo','descripcion','precio','condicion','fecha','image','cantidad')
         
     def create(self, validated_data):
         image = validated_data.pop('image')
@@ -42,3 +43,13 @@ class ProductSerializer(serializers.ModelSerializer):
         producto.save()
         
         return producto
+    
+class CategoriaSerializer(ModelSerializer):
+    class Meta:
+        model = Categoria
+        fields = ('id_categoria', 'categoria')
+
+class TransaccionSerializer(ModelSerializer):
+    class Meta:
+        model = Transaccion
+        fields = ('id_transaccion', 'id_comprador', 'id_vendedor', 'id_producto', 'fecha_transaccion', 'precio_transaccion', 'estado')

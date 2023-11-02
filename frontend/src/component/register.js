@@ -9,8 +9,6 @@ export const Register = () => {
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
-
-
   const submit = async (e) => {
     e.preventDefault();
 
